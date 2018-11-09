@@ -1,1 +1,3 @@
-没有区分环境的demo.可以模块化引入css.img.js
+娌℃湁鍖哄垎鐜鐨刣emo.鍙互妯″潡鍖栧紩鍏ss.img.js
+
+npm install
