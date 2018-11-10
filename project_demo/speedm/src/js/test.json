@@ -1,0 +1,19 @@
+{
+  "data": {
+    "score": 83,
+    "history": [
+      {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": 1},
+      {"timestamp": 1529460851, "reason": "参与团竞模式参与团竞模式参与团竞模式", "score": 63, "change": 1},
+	  {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": -1},
+      {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": 1},
+	  {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": 1},
+      {"timestamp": 1529460851, "reason": "参与团竞模式参与团竞模式", "score": 63, "change": 1},
+	  {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": 1},
+	  {"timestamp": 1529460851, "reason": "参与团竞模式参与团竞模式参与团竞模式", "score": 63, "change": 1},
+      {"timestamp": 1529460851, "reason": "参与团竞模式", "score": 63, "change": 1}
+      ]
+  },
+  "score": 63,
+  "ret": 0
+}
+

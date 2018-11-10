@@ -1,0 +1,842 @@
+<!doctype html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="Description" content="QQ飞车信誉分">
+    <meta name="Keywords" content="QQ飞车信誉分">
+    <meta content="telephone=no" name="format-detection">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <script>
+        //屏幕适应
+        (function(win, doc) {
+            if (!win.addEventListener) return;
+            var html = document.documentElement;
+
+            function setFont() {
+                var html = document.documentElement;
+                var k = 1334;
+                html.style.fontSize = html.clientWidth / k * 100 + "px";
+            }
+            setFont();
+            setTimeout(function() {
+                setFont();
+            }, 300);
+            doc.addEventListener('DOMContentLoaded', setFont, false);
+            win.addEventListener('resize', setFont, false);
+            win.addEventListener('load', setFont, false);
+        })(window, document);
+    </script>
+    <title>QQ飞车信誉分</title>
+    <!-- 设计：cp | 重构：| 创建：2018-1-25 | 更新：| 团队博客：http://tgideas.qq.com/ -->
+    <!-- 设计：cp | 重构： yy | 创建：2018-7-11|  -->
+    <!--<link href="css/css.css?timestamp=201804091015" rel="stylesheet" />-->
+</head>
+
+<body>
+    <div class="wrap">
+        <header class="topline tit01">
+            <a href="javascript:;" class="btn_back" title="返回"></a>
+        </header>
+        <!-- cont(正常数据状态) -->
+        <div class="cont cont1 cont_data" style="display: block;">
+            <div class="mod_left">
+                <strong class="count score"></strong>
+                <a href="javascript:;" class="btn_rules" title="查看信誉分规则"></a>
+            </div>
+            <!-- //mod_left -->
+            <div class="mod_right">
+                <div class="tit_record"></div>
+                <p class="tips t_yellow add">支持查询最近50条的信誉分变化数据</p>
+                <table width="100%" class="table_title">
+                    <tr class="tab-tit">
+                        <th width="29%">时间</th>
+                        <th width="18%">信誉分变化</th>
+                        <th width="18%">当前信誉分</th>
+                        <th width="35%">原因</th>
+                    </tr>
+                </table>
+                <div class="scroll">
+                    <!-- 有数据正常状态 -->
+                    <table width="100%">
+                        <tbody class="data-wrap">
+                        </tbody>
+                        <!--<tr class="bg_1a1">-->
+                            <!--<td width="29%">2018.01.03  14：25</td>-->
+                            <!--<td width="18%" class="t_yellow ">+1</td>-->
+                            <!--<td width="18%" class="bg_1a2">79</td>-->
+                            <!--<td width="35%">排位赛狙战模式中逃跑或挂机且被多人举报</td>-->
+                        <!--</tr>-->
+                    </table>
+                    <!-- //有数据正常状态 -->
+
+                    <!-- 暂无记录状态 -->
+                    <p class="txt_tips nodata" >暂时没有信誉分变化数据</p>
+                    <!-- //暂无记录状态 -->
+
+                    <!-- 系统繁忙状态 -->
+                    <p class="txt_tips cxsb" style="display: none">系统繁忙，暂时无法查询信誉分</p>
+                    <!-- //系统繁忙状态 -->
+                </div>
+            </div>
+            <!-- //mod_right -->
+        </div>
+        <!-- //cont(正常数据状态) -->
+
+        <!-- cont(繁忙提示状态) -->
+        <div class="cont cont_buzy" style="display: none;">
+            <i class="icon_buzy"></i>
+            <p>系统繁忙，暂时无法查询信誉分！</p>
+        </div>
+        <!-- //cont(繁忙提示状态) -->
+
+        <!-- 活动规则 -->
+        <div class="cont scroll cont2" style="display: none;">
+            <ul class="rules">
+                <li>每个玩家的初始分数都是满分100分；</li>
+                <li>
+                    您的违规行为会扣除一定的信誉分，具体如下：
+                    <dl>
+                        <dd>◆在<span class="t_yellow">“排位组队竞速、排位组队道具”</span>任一模式存在<span class="t_yellow">逃跑或挂机</span>行为，第一次扣除<span class="t_yellow">6分</span>；如果7天内多次违规，则本次扣分=6分*扣分系数（第一次系数为1，第二次系数为2，第三次及以后系数为3）；如果您被其他玩家举报，在原有扣分基础上，每次会额外扣除5分；</dd>
+                        <dd>◆在<span class="t_yellow">“对战组队竞速、对战组队道具及其他组队模式”</span>中存在<span class="t_yellow">逃跑或挂机</span>行为，第一次扣除<span class="t_yellow">4分</span>；如果7天内多次违规，则本次扣分=4分*扣分系数（第一次系数为1，第二次系数为2，第三次及以后系数为3）；如果您被其他玩家举报，在原有扣分基础上，每次会额外扣除3分；
+                        </dd>
+                        <dd>◆如果系统检测到您<span class="t_yellow">和作弊玩家一起组队</span>，则首次不扣分，如果3天内多次违规，后续每次扣除<span class="t_yellow">15分</span>；
+                        </dd>
+                        <dd>◆如果系统检测到您<span class="t_yellow">存在作弊行为被封号</span>，每次扣除<span class="t_yellow">60分</span>;</dd>
+                    </dl>
+                </li>
+                <li>
+                    您正常参与多人游戏并完成对局，可以恢复信誉分，<a href="#" class="see_rules">点击查看详细加分规则</a>
+                </li>
+                <li>
+                    如果信誉分低于60分，将被禁止参加排位赛；如果信誉分低于50分，将被禁止参加所有组队模式比赛
+                </li>
+                <li>您可以点击信誉分入口打开信誉分页面查看自己的信誉分变化情况；</li>
+                <li>
+                    希望各位玩家保持良好的游戏行为，一起营造健康的游戏环境！
+                </li>
+            </ul>
+        </div>
+        <!-- //活动规则 -->
+        <!-- 加分规则-->
+        <div class="cont cont4" style="display: none;">
+            <!--left-->
+            <div class="mod_single">
+                <div class="tit_record"></div>
+                <table width="100%" class="table_title">
+                    <tr class="tab-tit">
+                        <th width="42%">玩法模式</th>
+                        <th width="22%">比赛总人数</th>
+                        <th width="18%">名次</th>
+                        <th width="18%">加分</th>
+                    </tr>
+                </table>
+                <div class="scroll">
+                    <!-- 有数据正常状态 -->
+                    <table width="100%">
+                        <tbody class="">
+                        </tbody>
+                        <!--排位个人竞速-->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+					    </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">6</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <!-------------------对战个人竞速 --------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">1</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">6</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <!------------------------对战个人道具--------------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">1</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">3</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                        <td width="42%" class="td_01">对战个人道具</td>
+                        <td width="22%" class="td_02">4</td>
+                        <td width="18%" class="td_04">2</td>
+                        <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">5</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战个人道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">6</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <!-----------------------对战抢金币-------------------------->
+
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战抢金币</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">6</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <!-----------------------对战百人淘汰-个人------------------------>
+
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战百人淘汰-个人</td>
+                            <td width="22%" class="td_02">96</td>
+                            <td width="18%" class="td_04">任意</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!-----------------------对战超能竞速-个人------------------------->
+
+
+
+
+
+                    </table>
+                    <!-- //有数据正常状态 -->
+
+                    <!-- 暂无记录状态 -->
+                    <!--<p class="txt_tips nodata" style="display: none;">暂时没有信誉分变化数据！</p>-->
+                    <!-- //暂无记录状态 -->
+
+                    <!-- 系统繁忙状态 -->
+                    <p class="txt_tips cxsb" style="display: none">系统繁忙，暂时无法查询信誉分，请稍后再试！</p>
+                    <!-- //系统繁忙状态 -->
+                </div>
+            </div>
+            <!--right-->
+            <div class="mod_team">
+                <div class="tit_record"></div>
+                    <!-- 有数据正常状态 -->
+                    <table width="100%" class="table_title">
+                        <tr class="tab-tit">
+                            <th width="42%">玩法模式</th>
+                            <th width="22%">比赛总人数</th>
+                            <th width="18%">名次</th>
+                            <th width="18%">加分</th>
+                        </tr>
+                    </table>
+                    <!-- 有数据正常状态 -->
+                <div class="scroll">
+                    <table width="100%">
+                        <tbody class="">
+                        </tbody>
+                        <!---------------------排位组队竞速-------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!---------------------排位组队道具---------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!---------------------排位邂逅竞速------------------------>
+                        <!--<tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">2</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">排位邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>-->
+                        <!-------------------对战组队道具----------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!-----------------------对战组队竞速------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">2</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">胜</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战组队竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">负</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!----------------------对战邂逅竞速---------------------------->
+                        <!--<tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅竞速</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅竞速</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>-->
+                        <!-------------------对战邂逅道具----------------------------->
+                        <!--<tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅道具</td>
+                            <td width="22%" class="td_02">4</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战邂逅道具</td>
+                            <td width="22%" class="td_02">6</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>-->
+                        <!---------------------对战百人淘汰-组队------------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战百人淘汰-组队</td>
+                            <td width="22%" class="td_02">96</td>
+                            <td width="18%" class="td_04">任意</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <!--------------------------对战超能竞速-组队-------------------------->
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战超能竞速-组队</td>
+                            <td width="22%" class="td_02">10</td>
+                            <td width="18%" class="td_04">1</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战超能竞速-组队</td>
+                            <td width="22%" class="td_02">10</td>
+                            <td width="18%" class="td_04">2</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战超能竞速-组队</td>
+                            <td width="22%" class="td_02">10</td>
+                            <td width="18%" class="td_04">3</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战超能竞速-组队</td>
+                            <td width="22%" class="td_02">10</td>
+                            <td width="18%" class="td_04">4</td>
+                            <td width="18%" class="td_03">1</td>
+                        </tr>
+                        <tr class="bg_1a1">
+                            <td width="42%" class="td_01">对战超能竞速-组队</td>
+                            <td width="22%" class="td_02">10</td>
+                            <td width="18%" class="td_04">5</td>
+                            <td width="18%" class="td_03">0</td>
+                        </tr>
+                    </table>
+                    <!-- //有数据正常状态 -->
+
+                    <!-- 暂无记录状态 -->
+                    <!--<p class="txt_tips nodata" style="display: none">暂时没有信誉分变化数据！</p>-->
+                    <!-- //暂无记录状态 -->
+
+                    <!-- 系统繁忙状态 -->
+                    <p class="txt_tips cxsb" style="display: none">系统繁忙，暂时无法查询信誉分，请稍后再试！</p>
+                    <!-- //系统繁忙状态 -->
+                </div>
+            </div>
+        </div>
+        <!-- // 加分规则-->
+    </div>
+    <script src="bundle.js"></script>
+    <script>
+        var lag = 1;
+        /*活动规则*/
+        $(function() {
+            var titleImg = $('.topline');
+            var ruleBtn = $('.btn_rules');
+            var backBtn = $('.btn_back');
+            var defutBtn = $('.see_rules');
+            var firBg = $('.cont1');
+            var ruleBg = $('.cont2');
+            var ruleJf = $('.cont4');
+
+            ruleBtn.on('click', function() {
+                firBg.hide();
+                ruleBg.show();
+                backBtn.show();
+                $('.tit01').addClass('tit02');
+            });
+            backBtn.on('click', function() {
+
+               if($('header').hasClass('tit03')){
+                   $('.tit02').removeClass('tit03');
+                   firBg.hide();
+                   ruleBg.show();
+                   ruleJf.hide();
+                   backBtn.show();
+               }else{
+                   firBg.show();
+                   ruleBg.hide();
+                   backBtn.hide();
+                   ruleJf.hide();
+                   $('.tit01').removeClass('tit02');
+               }
+            });
+            defutBtn.on('click', function(){
+                firBg.hide();
+                ruleJf.show();
+                ruleBg.hide();
+                backBtn.show();
+                $('.tit02').addClass('tit03');
+                // $('.tit01').removeClass('tit02');
+
+            })
+
+        });
+    </script>
+</body>
+
+</html>
