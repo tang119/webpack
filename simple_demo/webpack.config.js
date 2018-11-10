@@ -25,7 +25,6 @@ module.exports = {
         ],
         output: {
             filename: 'bundle.js',
-            filename: '[name].bundle.js',//多入口文件
             path: path.resolve(__dirname, 'dist')
         },
         // 模块对象

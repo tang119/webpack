@@ -1,6 +1,5 @@
 
 import './css/style.css';
-import print from './print.js';
 
 
 if (process.env.NODE_ENV !== 'production') {
