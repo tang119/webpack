@@ -1,0 +1,12 @@
+.wrap{
+    width: 100px;
+    height: 200px;
+    background: red;
+}
+.wrap2{
+    width: 100px;
+    height: 200px;
+    background: url(dist/images/1.fd4ae7.png);
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvY3NzL3N0eWxlLmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSxDIiwiZmlsZSI6ImNzcy9tYWluLjYwZTE1ODgxLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi53cmFwe1xyXG4gICAgd2lkdGg6IDEwMHB4O1xyXG4gICAgaGVpZ2h0OiAyMDBweDtcclxuICAgIGJhY2tncm91bmQ6IHJlZDtcclxufVxyXG4ud3JhcDJ7XHJcbiAgICB3aWR0aDogMTAwcHg7XHJcbiAgICBoZWlnaHQ6IDIwMHB4O1xyXG4gICAgYmFja2dyb3VuZDogdXJsKGRpc3QvaW1hZ2VzLzEuZmQ0YWU3LnBuZyk7XHJcbn0iXSwic291cmNlUm9vdCI6IiJ9*/

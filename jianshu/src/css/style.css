@@ -1,0 +1,10 @@
+.wrap{
+    width: 100px;
+    height: 200px;
+    background: red;
+}
+.wrap2{
+    width: 100px;
+    height: 200px;
+    background: url("../images/1.png");
+}
